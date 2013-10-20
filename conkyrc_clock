@@ -1,6 +1,6 @@
 # clock
 # written by easysid
-# Tue, 01 Oct 2013 17:44:04 IST
+# Sun, 20 Oct 2013 10:44:04 IST
 
 # -- Conky settings -- #
 background no
@@ -19,7 +19,7 @@ text_buffer_size 2048
 imlib_cache_size 0
 
 use_xft yes
-xftfont Segoe UI Semibold:size=10 # M$ font!! blasphemy :-o
+xftfont monospace:size=10
 xftalpha .8
 
 own_window yes

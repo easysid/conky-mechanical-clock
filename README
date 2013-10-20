@@ -5,6 +5,8 @@ written by easysid. Oct 2013
 This is an animated mechanical/steampunk style conky clock written with lua.
 It uses various images and rotates them to create a rotating effect. 
 
+Video on YouTube: http://www.youtube.com/watch?v=WfM8ReK80Rk
+
 IMP: Set the lua path in conkyrc and the IMAGEPATH in lua script.
 
 Resources:

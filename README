@@ -1,0 +1,33 @@
+README
+mechanical conky clock
+written by easysid. Oct 2013
+
+This is an animated mechanical/steampunk style conky clock written with lua.
+It uses various images and rotates them to create a rotating effect. 
+
+IMP: Set the lua path in conkyrc and the IMAGEPATH in lua script.
+
+Resources:
+In the download, you'll have:
+a) This README file
+b) fancyclock.lua
+c) conkyrc
+d) conky_clock_brush.abr
+e) images folder
+ 
+
+1) The conky_clock_brush can be used for creating your own clock body. 
+Just mask any surface in Gimp and paint with the brush. It doesn't put the numbers though. That you'll have to do yourself.
+
+2) images folder contains the imges used in drawing the clock
+    a) gear1.png & gear2.png : The images for gears
+    b) gear11.png & gear21.png : Alternate images in golden color for dark backgrounds.
+    c) clockbody.png & clockbody2.png : Images for the clock body.
+    d) hour.png & minute.png : images for the hour and minute hands resp.
+    e) hour_red.png & minute_red.png : alternative images for the hour and minute hands in red.
+
+Image courtesy:
+gears: http://thesumofallcrafts.blogspot.in/2012_04_15_archive.html
+clock hands: http://www.clker.com/clipart-52239.html
+
+That is all then. 

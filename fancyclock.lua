@@ -9,11 +9,6 @@ This program is free software. You are free, infact encouraged, to modify it as 
 Documentation: fancyclock.lua  (Also see README)
 =====================================
 
-The script is designed to work with a conky interval of 0.1 . Change the
-value of MAX variable if you set a different value.
-
-Set the IMAGEPATH variable to point to the images used in the script.
-
 ======= Functions =======
 
 run_gear(t) : Draws the gear using the given file.
@@ -26,22 +21,26 @@ put_image(t) : Used to draw static images like clock body. Also, with rotate=tru
 ======== Images =========
 The only important point is use of square images, as it allows for easier manipulation while rotating. See the README for a list of included resources.
 
+Set the IMAGEPATH variable to point to the images used in the script.
+
 ]]--
 
 require 'cairo'
-require 'imlib2'
-
-MAX = 600 -- A conky update interval of 0.1
 
 -- Set the path to images below.
-IMAGEPATH = "/home/siddharth/mechanical_clock/images/"
+IMAGEPATH = "/home/siddharth/Conky/gear/"
 
 
 function conky_main()
     if conky_window == nil then return end
-    local cs = cairo_xlib_surface_create(conky_window.display, conky_window.drawable,
-    conky_window.visual, conky_window.width, conky_window.height)
+    local cs = cairo_xlib_surface_create(conky_window.display, 
+        conky_window.drawable, conky_window.visual, 
+            conky_window.width, conky_window.height)
     cr = cairo_create(cs)
+    
+    UPDATE_INT = conky_info["update_interval"]
+    MAX = math.floor(60/UPDATE_INT)
+    
     -- put gears
     run_gear({x=255, y=213, file='gear2.png', max=60, scale=0.75, tick=true})
     run_gear({x=300, y=250, scale=0.75, max=300})
@@ -70,7 +69,7 @@ function draw_clock_hands(t)
         x, y : coordinates for the images
         m_file : image file to use for the minute hand
         h_file : image file to use for the hour hand
-        
+
         <optional>
         m_scale : scaling factor for minute hand image (default 0.5)
         h_scale : scaling factor for hour hand image (default 0.5)
@@ -102,14 +101,14 @@ function draw_seconds(t)
         In addition to these, the parameter 'r', which is the radius of the circle at the base of seconds hand can be configured in the function itself.
     ]]--
 
-    local R = t.length 
+    local R = t.length
     local r = 5 -- the radius of the small circle of seconds hand
-    local max = MAX
+
     local updates = tonumber(conky_parse("${updates}"))
     local time = os.date('*t')
-    if not up then up = updates-time.sec*10 end
-    local value = (updates-up)%max
-    local theta = value*2*math.pi/max - math.pi/2
+    if not up then up = updates- math.floor(time.sec/UPDATE_INT) end
+    local value = (updates-up)%MAX
+    local theta = value*2*math.pi/MAX - math.pi/2
     local x = t.x + R*math.cos(theta)
     local y = t.y + R*math.sin(theta)
     cairo_set_line_width(cr, 2)
@@ -125,7 +124,7 @@ end --end draw_rolex
 function run_gear(t)
     --[[
         Function to draw the gears.
-        Parameters: 7 
+        Parameters: 7
         <mandatory>
         x, y : image coords.
         <optional>
@@ -156,7 +155,7 @@ end
 function put_image(t)
     --[[
         function to put the images and rotate them.
-        Params: 
+        Params:
         <mandatory>
         x,y : coords
         file : image file
